@@ -62,7 +62,7 @@ export default function Page() {
         const salary = findSalary(company, start);
         const workTime = (end.diff(start, "minute") ?? 0) - breakTime;
         if (hasOvertime) {
-            return salary * 8 + salary * 1.25 * ((end.diff(start, "minute") ?? 0) - 8 * 60) / 60;
+            return Math.ceil(salary * 8 + salary * 1.25 * ((end.diff(start, "minute") ?? 0) - 8 * 60) / 60);
         } else {
             return Math.ceil(salary * workTime / 60);
         }
