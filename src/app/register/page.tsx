@@ -62,7 +62,7 @@ export default function Page() {
         const salary = findSalary(company, start);
         const workTime = (end.diff(start, "minute") ?? 0) - breakTime;
         if (hasOvertime) {
-            return Math.ceil(salary * 8 + salary * 1.25 * ((end.diff(start, "minute") ?? 0) - 8 * 60) / 60);
+            return Math.ceil(salary * 8 + salary * 1.25 * (workTime - 8 * 60) / 60);
         } else {
             return Math.ceil(salary * workTime / 60);
         }
@@ -184,7 +184,7 @@ export default function Page() {
                 </Stack>
             </Stack>
             <Stack spacing={2} margin={5} display="flex" >
-                {end.diff(start, "minute") > 8 * 60 &&
+                {row.workTime > 8 * 60 &&
                     <Alert severity="info">勤務時間が8時間を超過しています．残業代を考慮する必要がある場合は「残業あり」を設定してください．</Alert>
                 }
             </Stack>
